@@ -1,0 +1,42 @@
+server:
+  port: 8881
+  
+eureka:
+  client: 
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.cloud.client.ipAddress}:${server.port}
+    
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+#      uri: http://localhost:8889
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      profile: dev
+      label: master
+      
+#信息
+info:
+  contact:
+    email: test
+    phone: test
+##运行状态 actuator监控
+endpoints:
+  enabled: true
+  info:
+    sensitive: true
+  health:
+    sensitive: true
+management:
+  ##服务路径
+  context-path: /
+  security:
+    enabled: false
+  ##服务端口
+  port: 8081
